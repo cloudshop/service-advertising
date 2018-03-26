@@ -1,0 +1,49 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "advertising",
+            "otherEntityName": "advertising",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "post"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "location",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sort_id",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "created_time",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "modified_time",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "version",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "deleted",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180319043058",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "post",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination",
+    "microserviceName": "advertising",
+    "searchEngine": false
+}

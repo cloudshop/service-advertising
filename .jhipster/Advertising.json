@@ -1,0 +1,42 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "image",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "link",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "alt",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "extend",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "created_time",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "modified_time",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "version",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180319042225",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "advertising",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination",
+    "microserviceName": "advertising",
+    "searchEngine": false
+}
