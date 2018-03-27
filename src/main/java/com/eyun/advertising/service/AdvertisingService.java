@@ -2,6 +2,9 @@ package com.eyun.advertising.service;
 
 import com.eyun.advertising.domain.Advertising;
 import com.eyun.advertising.repository.AdvertisingRepository;
+
+import java.time.Instant;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -62,11 +65,15 @@ public class AdvertisingService {
 
     /**
      * Delete the advertising by id.
-     *
+     * 物理删除 设置修改时间和删除属性
      * @param id the id of the entity
      */
     public void delete(Long id) {
         log.debug("Request to delete Advertising : {}", id);
-        advertisingRepository.delete(id);
+        Advertising advertising = advertisingRepository.getOne(id);
+        advertising.setModified_time(Instant.now());
+        advertising.setDeleted(true);
+        advertisingRepository.save(advertising);
+        return ;
     }
 }

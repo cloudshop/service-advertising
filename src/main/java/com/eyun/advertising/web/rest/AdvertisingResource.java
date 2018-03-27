@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +43,8 @@ public class AdvertisingResource {
     /**
      * POST  /advertisings : Create a new advertising.
      *
+     * 添加创建时间
+     * 删除字段默认为false
      * @param advertising the advertising to create
      * @return the ResponseEntity with status 201 (Created) and with body the new advertising, or with status 400 (Bad Request) if the advertising has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
@@ -54,6 +56,8 @@ public class AdvertisingResource {
         if (advertising.getId() != null) {
             throw new BadRequestAlertException("A new advertising cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        advertising.setCreated_time(Instant.now());
+        advertising.setDeleted(false);
         Advertising result = advertisingService.save(advertising);
         return ResponseEntity.created(new URI("/api/advertisings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -62,7 +66,7 @@ public class AdvertisingResource {
 
     /**
      * PUT  /advertisings : Updates an existing advertising.
-     *
+     * 设置更新时间
      * @param advertising the advertising to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated advertising,
      * or with status 400 (Bad Request) if the advertising is not valid,
@@ -76,6 +80,7 @@ public class AdvertisingResource {
         if (advertising.getId() == null) {
             return createAdvertising(advertising);
         }
+        advertising.setModified_time(Instant.now());
         Advertising result = advertisingService.save(advertising);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, advertising.getId().toString()))
@@ -113,7 +118,7 @@ public class AdvertisingResource {
 
     /**
      * DELETE  /advertisings/:id : delete the "id" advertising.
-     *
+     * 物理删除
      * @param id the id of the advertising to delete
      * @return the ResponseEntity with status 200 (OK)
      */
