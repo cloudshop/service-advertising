@@ -163,13 +163,13 @@ public class Post implements Serializable {
 
     public Post addAdvertising(Advertising advertising) {
         this.advertisings.add(advertising);
-        //advertising.setPost(this);
+        advertising.setPost(this);
         return this;
     }
 
     public Post removeAdvertising(Advertising advertising) {
         this.advertisings.remove(advertising);
-        //advertising.setPost(null);
+        advertising.setPost(null);
         return this;
     }
 
