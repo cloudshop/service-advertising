@@ -5,6 +5,7 @@ import com.eyun.advertising.AdvertisingApp;
 import com.eyun.advertising.config.SecurityBeanOverrideConfiguration;
 
 import com.eyun.advertising.domain.Advertising;
+import com.eyun.advertising.domain.Post;
 import com.eyun.advertising.repository.AdvertisingRepository;
 import com.eyun.advertising.service.AdvertisingService;
 import com.eyun.advertising.web.rest.errors.ExceptionTranslator;
@@ -64,6 +65,9 @@ public class AdvertisingResourceIntTest {
     private static final Integer DEFAULT_VERSION = 1;
     private static final Integer UPDATED_VERSION = 2;
 
+    private static final Boolean DEFAULT_DELETED = false;
+    private static final Boolean UPDATED_DELETED = true;
+
     @Autowired
     private AdvertisingRepository advertisingRepository;
 
@@ -111,7 +115,13 @@ public class AdvertisingResourceIntTest {
             .extend(DEFAULT_EXTEND)
             .created_time(DEFAULT_CREATED_TIME)
             .modified_time(DEFAULT_MODIFIED_TIME)
-            .version(DEFAULT_VERSION);
+            .version(DEFAULT_VERSION)
+            .deleted(DEFAULT_DELETED);
+        // Add required entity
+        Post post = PostResourceIntTest.createEntity(em);
+        em.persist(post);
+        em.flush();
+        advertising.setPost(post);
         return advertising;
     }
 
@@ -142,6 +152,7 @@ public class AdvertisingResourceIntTest {
         assertThat(testAdvertising.getCreated_time()).isEqualTo(DEFAULT_CREATED_TIME);
         assertThat(testAdvertising.getModified_time()).isEqualTo(DEFAULT_MODIFIED_TIME);
         assertThat(testAdvertising.getVersion()).isEqualTo(DEFAULT_VERSION);
+        assertThat(testAdvertising.isDeleted()).isEqualTo(DEFAULT_DELETED);
     }
 
     @Test
@@ -180,7 +191,8 @@ public class AdvertisingResourceIntTest {
             .andExpect(jsonPath("$.[*].extend").value(hasItem(DEFAULT_EXTEND.toString())))
             .andExpect(jsonPath("$.[*].created_time").value(hasItem(DEFAULT_CREATED_TIME.toString())))
             .andExpect(jsonPath("$.[*].modified_time").value(hasItem(DEFAULT_MODIFIED_TIME.toString())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)));
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
+            .andExpect(jsonPath("$.[*].deleted").value(hasItem(DEFAULT_DELETED.booleanValue())));
     }
 
     @Test
@@ -200,7 +212,8 @@ public class AdvertisingResourceIntTest {
             .andExpect(jsonPath("$.extend").value(DEFAULT_EXTEND.toString()))
             .andExpect(jsonPath("$.created_time").value(DEFAULT_CREATED_TIME.toString()))
             .andExpect(jsonPath("$.modified_time").value(DEFAULT_MODIFIED_TIME.toString()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION));
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
+            .andExpect(jsonPath("$.deleted").value(DEFAULT_DELETED.booleanValue()));
     }
 
     @Test
@@ -230,7 +243,8 @@ public class AdvertisingResourceIntTest {
             .extend(UPDATED_EXTEND)
             .created_time(UPDATED_CREATED_TIME)
             .modified_time(UPDATED_MODIFIED_TIME)
-            .version(UPDATED_VERSION);
+            .version(UPDATED_VERSION)
+            .deleted(UPDATED_DELETED);
 
         restAdvertisingMockMvc.perform(put("/api/advertisings")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -248,6 +262,7 @@ public class AdvertisingResourceIntTest {
         assertThat(testAdvertising.getCreated_time()).isEqualTo(UPDATED_CREATED_TIME);
         assertThat(testAdvertising.getModified_time()).isEqualTo(UPDATED_MODIFIED_TIME);
         assertThat(testAdvertising.getVersion()).isEqualTo(UPDATED_VERSION);
+        assertThat(testAdvertising.isDeleted()).isEqualTo(UPDATED_DELETED);
     }
 
     @Test

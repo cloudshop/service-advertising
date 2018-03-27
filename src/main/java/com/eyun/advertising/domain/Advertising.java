@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -43,6 +44,14 @@ public class Advertising implements Serializable {
 
     @Column(name = "version")
     private Integer version;
+
+    @Column(name = "deleted")
+    private Boolean deleted;
+
+    @OneToOne(optional = false)
+    @NotNull
+    @JoinColumn(unique = true)
+    private Post post;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -143,6 +152,32 @@ public class Advertising implements Serializable {
     public void setVersion(Integer version) {
         this.version = version;
     }
+
+    public Boolean isDeleted() {
+        return deleted;
+    }
+
+    public Advertising deleted(Boolean deleted) {
+        this.deleted = deleted;
+        return this;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public Advertising post(Post post) {
+        this.post = post;
+        return this;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -176,6 +211,7 @@ public class Advertising implements Serializable {
             ", created_time='" + getCreated_time() + "'" +
             ", modified_time='" + getModified_time() + "'" +
             ", version=" + getVersion() +
+            ", deleted='" + isDeleted() + "'" +
             "}";
     }
 }

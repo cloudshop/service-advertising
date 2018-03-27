@@ -8,5 +8,6 @@
     <include file="config/liquibase/changelog/20180319042225_added_entity_Advertising.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180319043058_added_entity_Post.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20180319042225_added_entity_constraints_Advertising.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

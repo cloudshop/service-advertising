@@ -1,6 +1,18 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "post",
+            "otherEntityName": "post",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "advertising"
+        }
+    ],
     "fields": [
         {
             "fieldName": "image",
@@ -29,6 +41,10 @@
         {
             "fieldName": "version",
             "fieldType": "Integer"
+        },
+        {
+            "fieldName": "deleted",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20180319042225",

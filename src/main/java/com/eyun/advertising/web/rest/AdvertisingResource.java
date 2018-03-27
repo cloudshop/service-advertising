@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -48,7 +49,7 @@ public class AdvertisingResource {
      */
     @PostMapping("/advertisings")
     @Timed
-    public ResponseEntity<Advertising> createAdvertising(@RequestBody Advertising advertising) throws URISyntaxException {
+    public ResponseEntity<Advertising> createAdvertising(@Valid @RequestBody Advertising advertising) throws URISyntaxException {
         log.debug("REST request to save Advertising : {}", advertising);
         if (advertising.getId() != null) {
             throw new BadRequestAlertException("A new advertising cannot already have an ID", ENTITY_NAME, "idexists");
@@ -70,7 +71,7 @@ public class AdvertisingResource {
      */
     @PutMapping("/advertisings")
     @Timed
-    public ResponseEntity<Advertising> updateAdvertising(@RequestBody Advertising advertising) throws URISyntaxException {
+    public ResponseEntity<Advertising> updateAdvertising(@Valid @RequestBody Advertising advertising) throws URISyntaxException {
         log.debug("REST request to update Advertising : {}", advertising);
         if (advertising.getId() == null) {
             return createAdvertising(advertising);
