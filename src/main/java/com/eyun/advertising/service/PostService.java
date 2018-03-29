@@ -2,9 +2,6 @@ package com.eyun.advertising.service;
 
 import com.eyun.advertising.domain.Post;
 import com.eyun.advertising.repository.PostRepository;
-
-import java.time.Instant;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -69,13 +66,7 @@ public class PostService {
      * @param id the id of the entity
      */
     public void delete(Long id) {
-    	//设置修改时间和删除属性
         log.debug("Request to delete Post : {}", id);
-        Post post = postRepository.getOne(id);
-        post.setDeleted(true);
-        post.setModified_time(Instant.now());
-        postRepository.save(post);
-        
-        return ;
+        postRepository.delete(id);
     }
 }

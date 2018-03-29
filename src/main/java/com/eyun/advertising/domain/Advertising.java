@@ -1,13 +1,15 @@
 package com.eyun.advertising.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -48,10 +50,10 @@ public class Advertising implements Serializable {
     @Column(name = "deleted")
     private Boolean deleted;
 
-    @OneToOne(optional = false)
-    @NotNull
-    @JoinColumn(unique = true)
-    private Post post;
+    @OneToMany(mappedBy = "advertising")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Post> posts = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -166,17 +168,29 @@ public class Advertising implements Serializable {
         this.deleted = deleted;
     }
 
-    public Post getPost() {
-        return post;
+    public Set<Post> getPosts() {
+        return posts;
     }
 
-    public Advertising post(Post post) {
-        this.post = post;
+    public Advertising posts(Set<Post> posts) {
+        this.posts = posts;
         return this;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public Advertising addPost(Post post) {
+        this.posts.add(post);
+        post.setAdvertising(this);
+        return this;
+    }
+
+    public Advertising removePost(Post post) {
+        this.posts.remove(post);
+        post.setAdvertising(null);
+        return this;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

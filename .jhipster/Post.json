@@ -4,8 +4,8 @@
         {
             "relationshipName": "advertising",
             "otherEntityName": "advertising",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "post"
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
         }
     ],
     "fields": [

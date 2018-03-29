@@ -5,7 +5,6 @@ import com.eyun.advertising.AdvertisingApp;
 import com.eyun.advertising.config.SecurityBeanOverrideConfiguration;
 
 import com.eyun.advertising.domain.Advertising;
-import com.eyun.advertising.domain.Post;
 import com.eyun.advertising.repository.AdvertisingRepository;
 import com.eyun.advertising.service.AdvertisingService;
 import com.eyun.advertising.web.rest.errors.ExceptionTranslator;
@@ -117,11 +116,6 @@ public class AdvertisingResourceIntTest {
             .modified_time(DEFAULT_MODIFIED_TIME)
             .version(DEFAULT_VERSION)
             .deleted(DEFAULT_DELETED);
-        // Add required entity
-        Post post = PostResourceIntTest.createEntity(em);
-        em.persist(post);
-        em.flush();
-        advertising.setPost(post);
         return advertising;
     }
 

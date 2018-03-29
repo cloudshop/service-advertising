@@ -1,6 +1,5 @@
 package com.eyun.advertising.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,8 +7,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -47,10 +44,8 @@ public class Post implements Serializable {
     @Column(name = "status")
     private Integer status;
 
-    @OneToMany(mappedBy = "post")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Advertising> advertisings = new HashSet<>();
+    @ManyToOne
+    private Advertising advertising;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -152,29 +147,17 @@ public class Post implements Serializable {
         this.status = status;
     }
 
-    public Set<Advertising> getAdvertisings() {
-        return advertisings;
+    public Advertising getAdvertising() {
+        return advertising;
     }
 
-    public Post advertisings(Set<Advertising> advertisings) {
-        this.advertisings = advertisings;
+    public Post advertising(Advertising advertising) {
+        this.advertising = advertising;
         return this;
     }
 
-    public Post addAdvertising(Advertising advertising) {
-        this.advertisings.add(advertising);
-        advertising.setPost(this);
-        return this;
-    }
-
-    public Post removeAdvertising(Advertising advertising) {
-        this.advertisings.remove(advertising);
-        advertising.setPost(null);
-        return this;
-    }
-
-    public void setAdvertisings(Set<Advertising> advertisings) {
-        this.advertisings = advertisings;
+    public void setAdvertising(Advertising advertising) {
+        this.advertising = advertising;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

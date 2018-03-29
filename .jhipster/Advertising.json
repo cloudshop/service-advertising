@@ -4,12 +4,7 @@
         {
             "relationshipName": "post",
             "otherEntityName": "post",
-            "relationshipType": "one-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "id",
-            "ownerSide": true,
+            "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "advertising"
         }
     ],
