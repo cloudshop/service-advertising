@@ -101,7 +101,37 @@ public class AdvertisingResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/advertisings");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-
+    
+    /**
+     * 根据条件查询（分页查询出已删除的所有数据）
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/getDeleted")
+    @Timed
+    public ResponseEntity<List<Advertising>> getDeleteAdvertisings(Pageable pageable) {
+        log.debug("REST request to get a page of Advertisings");
+        Page<Advertising> page = advertisingService.findDeleteAd(pageable);
+        
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/advertisings");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * 根据条件查询（分页查询出未删除的所有数据）
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/getNotDeleteAd")
+    @Timed
+    public ResponseEntity<List<Advertising>> getNotDeleteAdvertisings(Pageable pageable) {
+        log.debug("REST request to get a page of Advertisings");
+        Page<Advertising> page = advertisingService.findNotDeletedAd(pageable);
+        
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/advertisings");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
     /**
      * GET  /advertisings/:id : get the "id" advertising.
      *
@@ -125,8 +155,12 @@ public class AdvertisingResource {
     @DeleteMapping("/advertisings/{id}")
     @Timed
     public ResponseEntity<Void> deleteAdvertising(@PathVariable Long id) {
+    	
         log.debug("REST request to delete Advertising : {}", id);
         advertisingService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    
+    
 }
