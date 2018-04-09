@@ -194,7 +194,7 @@ public class AdvertisingResource {
      * 多表关联查询,某个位置上的被删除的广告，未被删除的广告
      * @return
      */
-    @GetMapping("/findNotDelAndLocation")
+    @GetMapping("/findNotDelByLoc")
     @Timed
     public ResponseEntity<List<Advertising>> findNotDelByLocation(){
 		/**
@@ -204,7 +204,7 @@ public class AdvertisingResource {
     	return new ResponseEntity<>(list,HttpStatus.OK);
     }
     
-    @GetMapping("/findDelAndLocation")
+    @GetMapping("/findDelByLoc")
     @Timed
     public ResponseEntity<List<Advertising>> findByLocation(){
     	List<Advertising> list = advertisingService.findByLocation("首页", true);

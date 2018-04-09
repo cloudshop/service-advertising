@@ -150,7 +150,6 @@ public class AdvertisingService {
 				query.where(cb.and(p1,p2));
 				return null;
 			}
-			
 		}
 	);	
 		return advertising;
