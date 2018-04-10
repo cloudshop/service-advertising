@@ -196,7 +196,7 @@ public class AdvertisingResource {
      * 多表关联查询,某个位置上的被删除的广告，未被删除的广告
      * @return
      */
-    @ApiOperation(value = "查看首页广告")
+    @ApiOperation(value = "查看首页的广告")
     @GetMapping("/findNotDelByLoc")
     @Timed
     public ResponseEntity<List<Advertising>> findNotDelByLocation(){
