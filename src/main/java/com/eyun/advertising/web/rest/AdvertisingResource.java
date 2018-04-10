@@ -206,7 +206,7 @@ public class AdvertisingResource {
     	List<Advertising> list = advertisingService.findByLocation("首页", false);
     	return new ResponseEntity<>(list,HttpStatus.OK);
     }
-    
+    @ApiOperation(value = "查看已经删除的首页广告")
     @GetMapping("/findDelByLoc")
     @Timed
     public ResponseEntity<List<Advertising>> findByLocation(){
