@@ -8,6 +8,8 @@ import com.eyun.advertising.web.rest.errors.BadRequestAlertException;
 import com.eyun.advertising.web.rest.util.HeaderUtil;
 import com.eyun.advertising.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiOperation;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -194,6 +196,7 @@ public class AdvertisingResource {
      * 多表关联查询,某个位置上的被删除的广告，未被删除的广告
      * @return
      */
+    @ApiOperation(value = "查看首页广告")
     @GetMapping("/findNotDelByLoc")
     @Timed
     public ResponseEntity<List<Advertising>> findNotDelByLocation(){
